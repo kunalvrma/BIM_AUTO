@@ -1,3 +1,4 @@
+//bimautomation.consulting is swapped with resend.dev until a domain is purchased, swap it back once domain is registered
 import { NextResponse } from "next/server";
 import { z } from "zod";
 
@@ -25,14 +26,14 @@ export async function POST(request: Request) {
 
     // Only attempt Resend if API key is configured
     const resendApiKey = process.env.RESEND_API_KEY;
-    const toEmail = process.env.CONTACT_EMAIL || "hello@bimautomation.consulting";
+    const toEmail = process.env.CONTACT_EMAIL || "hello@resend.dev";
 
     if (resendApiKey) {
       const { Resend } = await import("resend");
       const resend = new Resend(resendApiKey);
 
       await resend.emails.send({
-        from: "BIM Automation Website <noreply@bimautomation.consulting>",
+        from: "BIM Automation Website <noreply@resend.dev>",
         to: [toEmail],
         reply_to: email,
         subject: `New enquiry from ${company} — ${projectType || "General"}`,
@@ -75,7 +76,7 @@ export async function POST(request: Request) {
 
       // Send auto-reply to the enquirer
       await resend.emails.send({
-        from: "Kunal Verma <hello@bimautomation.consulting>",
+        from: "Kunal Verma <hello@resend.dev>",
         to: [email],
         subject: "We received your automation enquiry",
         html: `
